@@ -13,7 +13,7 @@ public class KakaoUriBuilderService {
 
     public URI buildUriByAddressSearch(String address){
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(KAKAO_LOCAL_SEARCH_ADDRESS_URL);
-        uriBuilder.query(address);
+        uriBuilder.queryParam("query", address);
         URI uri = uriBuilder.build().encode().toUri();
         log.info("[KakaoUriBuilderService.buildUriByAddressSearch] address: {}, uri:{}", address, uri);
         return uri;
