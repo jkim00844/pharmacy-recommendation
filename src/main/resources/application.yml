@@ -7,13 +7,14 @@ spring:
       prod:
         - common
 ---
-
 spring:
   config:
     activate:
       on-profile: common
-
-# ... ???? ???? ???
+kakao:
+  rest:
+    api:
+      key: ${KAKAO_REST_API_KEY}
 ---
 
 spring:
