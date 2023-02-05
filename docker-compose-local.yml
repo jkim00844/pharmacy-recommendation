@@ -13,7 +13,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./database
-    image: pharmacy-recommendation-database
+    image: jkim00844/pharmacy-recommendation-database
     environment:
       - MARIADB_DATABASE=pharmacy-recommendation
       - MARIADB_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
