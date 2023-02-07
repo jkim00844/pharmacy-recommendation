@@ -1,6 +1,7 @@
 package com.example.project.direction.service;
 
 import com.example.project.api.dto.DocumentDto;
+import com.example.project.direction.direction.DirectionRepository;
 import com.example.project.direction.entity.Direction;
 import com.example.project.pharmacy.service.PharmacySearchService;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -23,7 +25,13 @@ public class DirectionService {
     private static final double RADIUS_KM = 10.0;
 
     private final PharmacySearchService pharmacySearchService;
+    private final DirectionRepository directionRepository;
 
+    public List<Direction> saveAll(List<Direction> directionList){
+        // 추천 결과 저장
+        if(CollectionUtils.isEmpty(directionList)) return Collections.emptyList();
+        return directionRepository.saveAll(directionList);
+    }
     public List<Direction> buildDirectionList(DocumentDto documentDto) {
         // documentDto : 고객 주소의 위도, 경도값을 가짐
 
