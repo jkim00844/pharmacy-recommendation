@@ -19,6 +19,7 @@ public class PharmacyRecommendationService {
     private final KakaoAddressSearchService kakaoAddressSearchService;
     private final DirectionService directionService;
 
+
     public void recommendPharmacyList(String address){
         // 주소입력 -> 위치기반데이터(위도, 경도값)으로 변환
         KakaoApiResponseDto kakaoApiResponseDto = kakaoAddressSearchService.requestAddressSearch(address);
@@ -32,6 +33,25 @@ public class PharmacyRecommendationService {
 
         // 위치기반데이터로 가까운 약국들을 찾는다.
         List<Direction> directionList = directionService.buildDirectionList(documentDto);
+
+        // 저장.
+        directionService.saveAll(directionList);
+
+    }
+
+    public void recommendPharmacyListByByCategorySearchApi(String address){
+        // 주소입력 -> 위치기반데이터(위도, 경도값)으로 변환
+        KakaoApiResponseDto kakaoApiResponseDto = kakaoAddressSearchService.requestAddressSearch(address);
+
+        if(Objects.isNull(kakaoApiResponseDto) || Objects.isNull(kakaoApiResponseDto.getDocumentList()) || kakaoApiResponseDto.getDocumentList().isEmpty()) {
+            log.error("[PharmacyRecommendationService recommendPharmacyList fail] Input address: " + address);
+            return;
+        }
+
+        DocumentDto documentDto = kakaoApiResponseDto.getDocumentList().get(0);
+
+        // 위치기반데이터로 가까운 약국들을 찾는다. (카카오 카테고리 검색 api 로)
+        List<Direction> directionList = directionService.buildDirectionListByCategoryApi(documentDto);
 
         // 저장.
         directionService.saveAll(directionList);
