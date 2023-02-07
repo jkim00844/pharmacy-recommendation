@@ -23,7 +23,7 @@ public class PharmacyRecommendationService {
         // 주소입력 -> 위치기반데이터(위도, 경도값)으로 변환
         KakaoApiResponseDto kakaoApiResponseDto = kakaoAddressSearchService.requestAddressSearch(address);
 
-        if(Objects.isNull(kakaoApiResponseDto) || Objects.isNull(kakaoApiResponseDto.getDocumentList())) {
+        if(Objects.isNull(kakaoApiResponseDto) || Objects.isNull(kakaoApiResponseDto.getDocumentList()) || kakaoApiResponseDto.getDocumentList().isEmpty()) {
             log.error("[PharmacyRecommendationService recommendPharmacyList fail] Input address: " + address);
             return;
         }
