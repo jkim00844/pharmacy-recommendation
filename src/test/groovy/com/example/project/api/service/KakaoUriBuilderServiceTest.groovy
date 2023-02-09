@@ -22,7 +22,7 @@ class KakaoUriBuilderServiceTest extends Specification {
         def decodedResult = URLDecoder.decode(uri.toString(), charset)
 
         then:
-        decodedResult == "https://dapi.kakao.com/v2/local/search/address.json?서울 성북구"
+        decodedResult == "https://dapi.kakao.com/v2/local/search/address.json?query=서울 성북구"
     }
 
 }

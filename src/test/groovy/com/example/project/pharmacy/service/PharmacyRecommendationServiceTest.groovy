@@ -18,7 +18,7 @@ class PharmacyRecommendationServiceTest extends AbstractIntegrationContainerBase
 
         then:
         if(searchResult == null) actualResult = false
-        else actualResult = searchResult.getDocumentList().size() == 3
+        else actualResult = searchResult.size() == 3
 
         where:
         inputAddress                            | expectedResult
